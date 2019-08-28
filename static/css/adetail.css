@@ -1,0 +1,41 @@
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+
+h1,h2,h3,h4,h5,h6{
+    padding-top:4rem;
+    padding-bottom: 1rem;
+}
+
+h1,h2{
+    color:dodgerblue !important;
+}
+
+code{
+    border-radius: 0.5rem;
+    background-color: #ededed !important;
+}
+
+h1{
+    font-size:2rem !important;
+}
+
+h2{
+    font-size: 1.8rem !important;
+}
+h3{
+    font-size:1.6rem !important;
+}
+h4{
+    font-size: 1.4rem !important;
+}
+h5{
+    font-size: 1.2rem !important;
+}
+h6{
+    font-size: 1.0rem !important;
+}
+p,pre,code{
+    font-size: 0.8rem !important;
+}

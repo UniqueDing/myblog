@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/pdetail.css">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% include 'header.html' with lang=lang active='picture' %}
+<div class="container" style="margin-top: 8rem;min-height: 30rem">
+    <div class="row">
+        <div class="col-md-7">
+            <img src="{{ pic }}" class="img-fluid" >
+        </div>
+
+        <div class="col-md-5">
+            <p class="name">{{ name }}</p>
+            <p class="author">{{ author }}</p>
+            <p class="time">{{ time }}</p>
+            <p class="label">{{ label }}</p>
+            <p class="detail">{{ detail }}</p>
+        </div>
+    </div>
+</div>
+{% include 'footer.html' with lang=lang %}
+</body>
+</html>

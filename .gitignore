@@ -1,0 +1,6 @@
+/enviroment
+/.idea
+/app/__pycache__
+/app/method/__pycache__
+/app/migrations/__pycache__
+/myblog/__pycache__

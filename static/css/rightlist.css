@@ -1,0 +1,24 @@
+.right_list {
+    /*height: 30rem;*/
+    /*overflow: auto;*/
+    z-index: 10;
+    position: absolute;
+    top: 8rem;
+    overflow-y:auto;
+}
+
+.right_list .active{
+    color:white;
+    background-color: #75b1a9;
+}
+.right_list a {
+    border-left: 0.15rem solid #75b1a9;
+    padding-left: 1rem;
+    color: #555;
+    font-size: 0.9rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0;
+    display: block;
+}
+
+

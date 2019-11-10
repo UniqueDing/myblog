@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="../static/css/downbutton.css">
+<script type="text/javascript" src="../static/js/jQueryRotate.js"></script>
+{# d-block d-sm-none :只在sm显示 #}
+<div class="d-block d-sm-none ">
+    <nav id="rightList" class="bg-light down_list d-none">
+        {% autoescape off %}
+            {% for i in list %}
+                {{ i }}
+            {% endfor %}
+        {% endautoescape %}
+    </nav>
+    <button class="btn rounded-circle btn-primary  down_button fixed-bottom">
+        <img src="../static/img/add.png">
+    </button>
+</div>
+
+<script>
+
+    function roll() {
+        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        var scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+        var divTop
+        try {
+            $(".down_list").height()
+            divTop = $(".down_list .active").offset().top / (scrollHeight / $(".down_list").height())
+        } catch (e) {
+        }
+        if (divTop < $(".down_list").height() / 2) {
+            $(".down_list").scrollTop(0)
+        } else {
+            $(".down_list").scrollTop(divTop)
+        }
+    }
+
+    $(window).scroll(function () {
+        roll()
+    })
+    btn_angle = 1;
+    $(".down_button").click(function () {
+        {# 设置菜单显示隐藏 #}
+        if ($(".down_list").attr('class').indexOf('d-none') != -1) {
+            $(".down_list").removeClass('d-none')
+        } else {
+            $(".down_list").addClass('d-none')
+        }
+        {#        console.log(btn_angle);#}
+        {# 设置button旋转 #}
+        $(this).rotate({animateTo: 45 * btn_angle});
+        btn_angle++;
+        roll()
+    })
+</script>

@@ -1,0 +1,11 @@
+.footpage {
+    margin: 0.5rem 0;
+}
+.footpage .active .page-link{
+    /*background-color: #000;*/
+    color:white;
+}
+
+.footpage .page-link{
+    /*color:#000;*/
+}

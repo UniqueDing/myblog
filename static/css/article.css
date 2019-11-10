@@ -1,0 +1,56 @@
+.container {
+    padding-top: 4rem;
+}
+.articlecontent{
+    clear:both;
+    margin-bottom: 0.5rem;
+}
+.articlecontent .data{
+    background-color: #ededed;
+    margin-top:0.75rem;
+    margin-right:2rem;
+    height:5rem;
+    width:4rem;
+    border: 0.1rem solid #777;
+    border-radius: 0.3rem;
+}
+.articlecontent .data .year{
+    font-size:0.8rem;
+    margin:0.3rem 0.3rem ;
+    padding-bottom: 0.3rem;
+    color:#444;
+    border-bottom:0.1rem solid #777;
+}
+.articlecontent .data .time{
+    color:#333;
+    font-size:1.3rem;
+}
+.articlecontent .right{
+    width:auto;
+    height:7rem;
+    overflow: hidden;
+    margin-left:0.3rem;
+    cursor: pointer;
+}
+
+.articlecontent .right .name{
+    font-size:1.2rem;
+    font-weight: 600;
+    color:#3b200c;
+}
+
+.articlecontent .right .author{
+    display: inline;
+    color:#555;
+    font-size:0.7rem;
+}
+.articlecontent .right .label{
+    color:#555;
+    font-size:0.7rem;
+    display: inline;
+}
+.articlecontent .right .detail{
+    color:#444;
+    display: block;
+    font-size:0.8rem;
+}

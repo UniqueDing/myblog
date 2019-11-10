@@ -1,0 +1,18 @@
+#date{
+    font-size: 1.7rem;
+    color:#222;
+}
+#time{
+    font-size: 1.4rem;
+    color:dodgerblue;
+}
+
+.line{
+    margin:0.5rem 0;
+    width:7rem;
+    border:0.08rem solid dodgerblue;
+}
+
+h6{
+    font-size:1.3rem !important;
+}

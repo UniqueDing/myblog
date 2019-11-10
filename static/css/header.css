@@ -1,0 +1,6 @@
+.navbar-toggler:active{
+    outline: none;
+}
+.nav-item{
+    margin-left:2.5rem;
+}

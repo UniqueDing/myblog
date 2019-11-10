@@ -60,39 +60,15 @@
     $(".navbar").addClass("navbar-transparent d-none")
     $(window).scroll(function () {
         var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-        {#        console.log(scrollTop);#}
-        var h = $('.nav_bg_img').height();
-        switch (true) {
-            case h / 10 * 0 <= scrollTop && h / 10 * 1 > scrollTop :
-                $(".navbar").addClass("d-none")
-                $(".navbar").css("background", "rgba(255,255,255,0)");
-                break;
-            case h / 10 * 1 <= scrollTop && h / 10 * 2 > scrollTop :
-                $(".navbar").removeClass("d-none")
-                $(".navbar").css("background", "rgba(255,255,255,0.10)");
-                break;
-            case h / 10 * 2 <= scrollTop && h / 10 * 3 > scrollTop :
-                $(".navbar").removeClass("d-none")
-                $(".navbar").css("background", "rgba(255,255,255,0.20)");
-                break;
-            case h / 10 * 3 <= scrollTop && h / 10 * 4 > scrollTop :
-                $(".navbar").removeClass("d-none")
-                $(".navbar").css("background", "rgba(255,255,255,0.30)");
-                break;
-            case h / 10 * 4 <= scrollTop && h / 10 * 5 > scrollTop :
-                $(".navbar").removeClass("d-none")
-                $(".navbar").css("background", "rgba(255,255,255,0.50)");
-                break;
-            case h / 10 * 5 <= scrollTop && h / 10 * 6 > scrollTop :
-                $(".navbar").removeClass("d-none")
-                $(".navbar").css("background", "rgba(255,255,255,0.75)");
-                break;
-            case h / 10 * 6 <= scrollTop  :
-                $(".navbar").removeClass("d-none")
-                $(".navbar").css("background", "rgba(255,255,255,1)");
-                break;
-        }
+        var h = $('.nav_bg_img').height()
+        var color = (scrollTop / (h - h / 9))
+        $(".navbar").removeClass("d-none")
+        $(".navbar").css("background", "rgba(255,255,255," + color + ")")
+        {# if window is topest,hidden the navbar #}
+        if(0 == color)  $(".navbar").addClass("d-none")
     })
+
+
     $(".navbar-toggler").click(function () {
         {#        console.log($(".navbar-toggler").attr("aria-expanded"))#}
         if ($(".navbar-toggler").attr("aria-expanded") == 'true') {

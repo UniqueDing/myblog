@@ -1,6 +1,7 @@
 /enviroment
+/venv
 /.idea
-/app/__pycache__
-/app/method/__pycache__
-/app/migrations/__pycache__
-/myblog/__pycache__
+*/_pycache__
+db.sqlite3
+/static/md
+/static/pic

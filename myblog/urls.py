@@ -18,29 +18,31 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 
-from app import views as app_view
+from core import views as core_view
+from article import views as article_view
+from picture import views as picture_view
 
 urlpatterns = [
-    path('', app_view.index),
-    path('article', app_view.article),
-    path('article/<str:label>', app_view.articleLabel),
-    path('picture', app_view.picture),
-    path('picture/<str:label>', app_view.pictureLabel),
-    path('music', app_view.music),
-    path('about/', app_view.about),
-    path('adetail/<int:id>', app_view.adetail),
-    path('pdetail/<int:id>', app_view.pdetail),
-    path('articleList/', app_view.articleList),
-    path('labelList/', app_view.labelList),
-    path('pictureList/', app_view.pictureList),
-    path('plabelList/', app_view.plabelList),
+    path('', core_view.index),
+    path('article', article_view.article),
+    path('article/<str:label>', article_view.articleLabel),
+    path('picture', article_view.picture),
+    path('picture/<str:label>', article_view.pictureLabel),
+    path('music', core_view.music),
+    path('about/', core_view.about),
+    path('adetail/<int:id>', article_view.adetail),
+    path('pdetail/<int:id>', article_view.pdetail),
+    path('articleList/', article_view.articleList),
+    path('labelList/', article_view.labelList),
+    path('pictureList/', article_view.pictureList),
+    path('plabelList/', article_view.plabelList),
     path('admin/', admin.site.urls),
-    url(r'^favicon.ico$',RedirectView.as_view(url=r'static/favicon.ico')),
+    path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+
 ]
 
 
-
-#handler404 = app_view.index
-#handler500 = app_view.index
+handler500 = core_view.index

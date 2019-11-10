@@ -1,7 +1,8 @@
 /enviroment
 /venv
 /.idea
-*pycache
+/__pycache__
+*/__pycache__
 db.sqlite3
 /static/md
 /static/pic

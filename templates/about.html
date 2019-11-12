@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <title>{% if lang == 'en' %}ABOUT{% else %}关于{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
-    <link rel="stylesheet" href="../static/css/about.css">
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href={% static 'css/adetail.css'%}>
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css'%}>
+    <link rel="stylesheet" href={% static 'css/tomorrow.min.css'%}>
+    <link rel="stylesheet" href={% static 'css/about.css'%}>
+    <script type="text/javascript" src={% static 'js/jquery.min.js'%}></script>
+    <script type="text/javascript" src={% static 'js/bootstrap.min.js'%}></script>
+    <script type="text/javascript" src={% static 'js/highlight.min.js'%}></script>
 </head>
 <body>
 {% include 'header.html' with lang=lang active='about' %}
@@ -16,37 +19,9 @@
     <span id="time"> </span>
 
     <div style="margin:2.5rem 0;">
-        {% if lang == 'en' %}
-            <h6>ABOUT AUTHOR</h6><div class="line"></div>
-                <p>
-                    We love to program, mainly learn python, machine learning, network security, etc，still students at present.
-                </p>
-            <h6>ABOUT SITE</h6><div class="line"></div>
-                <p>
-                    The site article is written in mardown.Deploy in tencent cloud.<br>
-                    If there is any infringement, please contact me to delete and apologize.
-                </p>
-            <h6>ADDRESS</h6><div class="line"></div>
-                <p>
-                    email ： 1224472370@qq.com / unique122447@gmail.com <br>
-                    qq ： 1224472370
-                </p>
-        {% else %}
-            <h6>关于作者</h6><div class="line"></div>
-                <p>
-                    我们热爱编程，主要学习python，机器学习，网络安全等，目前还是学生
-                </p>
-            <h6>关于网站</h6><div class="line"></div>
-                <p>
-                    网站文章采用 mardown 编写，部署在腾讯云<br>
-                    如有侵权，请联系我删除并道歉
-                </p>
-            <h6>联系方式</h6><div class="line"></div>
-                <p>
-                    邮箱 ： 1224472370@qq.com / unique122447@gmail.com <br>
-                    qq ： 1224472370
-                </p>
-        {% endif %}
+        <div class="markdown col-sm-9">
+            {% autoescape off %}{{ md }}{% endautoescape %}
+        </div>
     </div>
 </div>
 
@@ -54,6 +29,7 @@
 <script>
 
     mytime()
+    hljs.initHighlightingOnLoad()
 
     function mytime() {
         var initTime = [2018, 4, 1, 0, 0, 0]

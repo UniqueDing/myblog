@@ -13,11 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf import settings
-from django.conf.urls.static import static
+from django.views import static
 from django.views.generic import RedirectView, TemplateView
 
 from core import views as core_view
@@ -28,21 +27,21 @@ urlpatterns = [
     path('', core_view.index),
     path('article', article_view.article),
     path('article/<str:label>', article_view.articleLabel),
-    path('picture', article_view.picture),
-    path('picture/<str:label>', article_view.pictureLabel),
+    path('picture', picture_view.picture),
+    path('picture/<str:label>', picture_view.pictureLabel),
     path('music', core_view.music),
     path('about/', core_view.about),
     path('adetail/<int:id>', article_view.adetail),
-    path('pdetail/<int:id>', article_view.pdetail),
+    path('pdetail/<int:id>', picture_view.pdetail),
     path('articleList/', article_view.articleList),
     path('labelList/', article_view.labelList),
-    path('pictureList/', article_view.pictureList),
-    path('plabelList/', article_view.plabelList),
-    path('admin/', admin.site.urls),
+    path('pictureList/', picture_view.pictureList),
+    path('plabelList/', picture_view.plabelList),
+    path('btding/', admin.site.urls),
     path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-
+    re_path(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
 ]
 
-
-handler500 = core_view.index
+# handler404 = core_view.index
+# handler500 = core_view.index

@@ -1,48 +1,56 @@
-from django.shortcuts import render
 from method.change_language import language
+from django.http import Http404
 from method.md2html import md2html
 from method.page_list import page_list
 from pyquery import PyQuery as pq
-from article import models
+from picture import models
 import json
 import math
 
 
 def picture_view(request):
     lang = language(request)
-    labels = list(models.Picture.objects.values_list('label', flat=True))
-    labelset = set(labels)
-    mylist = []
-    for ele in labelset:
-        mylist.append("<a class=\"nav-link\" href=\"/picture/" + ele + "\">" + ele + "&nbsp;&nbsp;(" + str(
+    try:
+        labels = list(models.Picture.objects.values_list('label', flat=True))
+    except models.Picture.DoesNotExist:
+        raise Http404("labels does not exist")
+    label_set = set(labels)
+    my_list = []
+    for ele in label_set:
+        my_list.append("<a class=\"nav-link\" href=\"/picture/" + ele + "\">" + ele + "&nbsp;&nbsp;(" + str(
             labels.count(ele)) + ")</a>")
-    dict = {'lang': lang, 'list': mylist}
-    return dict
+    context = {'lang': lang, 'list': my_list}
+    return context
 
 
 def pictureLabel_view(request, label):
     lang = language(request)
-    labels = list(models.Picture.objects.values_list('label', flat=True))
-    labelset = set(labels)
-    mylist = []
-    for ele in labelset:
-        mylist.append("<a class=\"nav-link\" href=\"/picture/" + ele + "\">" + ele + "&nbsp;&nbsp;(" + str(
+    try:
+        labels = list(models.Picture.objects.values_list('label', flat=True))
+    except models.Picture.DoesNotExist:
+        raise Http404("labels does not exist")
+    label_set = set(labels)
+    my_list = []
+    for ele in label_set:
+        my_list.append("<a class=\"nav-link\" href=\"/picture/" + ele + "\">" + ele + "&nbsp;&nbsp;(" + str(
             labels.count(ele)) + ")</a>")
-    dict = {'lang': lang, 'list': mylist, 'label': label}
-    return dict
+    context = {'lang': lang, 'list': my_list, 'label': label}
+    return context
 
 
 def pdetail_view(request, id):
     lang = language(request)
-    list = models.Picture.objects.values().get(id=id)
-    print(list)
-    pic = '../static/pic/' + list['name'] + '.jpg'
-    file = open('static/pic/' + list['name'] + '.txt', encoding='UTF-8')
+    try:
+        my_list = models.Picture.objects.values().get(id=id)
+    except models.Picture.DoesNotExist:
+        raise Http404("labels does not exist")
+    pic = '../static/pic/' + my_list['name'] + '.jpg'
+    file = open('static/pic/' + my_list['name'] + '.txt', encoding='UTF-8')
     detail = file.read()
     file.close()
-    dict = {'name': list['name'], 'pic': pic, 'author': list['author'], 'time': list['time'], 'detail': detail,
-            'label': list['label']}
-    return dict
+    context = {'name': my_list['name'], 'pic': pic, 'author': my_list['author'], 'time': my_list['time'], 'detail': detail,
+            'label': my_list['label']}
+    return context
 
 
 def pictureList_view(request):
@@ -59,25 +67,6 @@ def pictureList_view(request):
         list.append(dict)
     count = math.ceil(models.Picture.objects.count() / 8)
     text = json.dumps({'list': list, 'page': page, 'pageList': page_list(page, count), 'totalPage': count})
-    return text
-
-
-def articleList_view(request):
-    page = int(request.GET.get('page', None))
-    list = []
-    for ele in models.Article.objects.all().order_by('-time')[(page * 10 - 10):(page * 10)]:
-        f = open('static/md/' + ele.name + '/' + ele.name + '.md', encoding='UTF-8')
-        file = f.read()[:200]
-        file = md2html(file)
-        p = pq(file)
-        f.close()
-        dict = {'id': ele.id, 'name': ele.name, 'author': ele.author, 'time': str(ele.time)[:7],
-                'data': str(ele.time)[-2:], 'label': ele.label,
-                'detail': p.text()}
-        list.append(dict)
-    count = math.ceil(models.Article.objects.count() / 10)
-    text = json.dumps({'list': list, 'page': page, 'pageList': page_list(page, count), 'totalPage': count})
-    #text = {'list': list, 'page': page, 'pageList': page_list(page, count), 'totalPage': count}
     return text
 
 

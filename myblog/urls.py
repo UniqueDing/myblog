@@ -22,6 +22,7 @@ from django.views.generic import RedirectView, TemplateView
 from core import views as core_view
 from article import views as article_view
 from picture import views as picture_view
+from movie import views as movie_view
 
 urlpatterns = [
     path('', core_view.index),
@@ -29,7 +30,9 @@ urlpatterns = [
     path('article/<str:label>', article_view.articleLabel),
     path('picture', picture_view.picture),
     path('picture/<str:label>', picture_view.pictureLabel),
-    path('music', core_view.music),
+    path('movie', movie_view.movie),
+    path('movieset', movie_view.movieset),
+    path('movieget', movie_view.movieget),
     path('about/', core_view.about),
     path('adetail/<int:id>', article_view.adetail),
     path('pdetail/<int:id>', picture_view.pdetail),

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% if lang == 'en' %}MOVIE{% else %}电影{% endif %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% include 'header.html' with lang=lang active='movie'%}
+<div class="container">
+		<video id="mainVideo" controls autoplay src="/static/movie/{{movie_url}}">
+		</video>
+</div>
+{% include 'footer.html' with lang=lang%}
+<script>
+    var movie = document.getElementById("mainVideo")
+    var movie_url = '{{ movie_url }}'
+    var movie_src = movie_url
+    var movie_status = {{ movie_status }}
+    var movie_rate = {{ movie_rate }}
+    var movie_changed = 0
+    var movie_changed_other = 0
+	var movie_last_status = 0
+
+	var delay = 2
+	var play_delay = 0
+
+
+    $(document).ready(function(){
+		if(movie_status == 0)
+			movie.pause()
+        movie.currentTime = movie_rate
+		setInterval("loop()", 2000)
+    })
+
+
+    function loop()
+    {
+		//play and pause
+		if(bool2int(movie.paused) != movie_last_status)
+		{
+			movie_status = bool2int(!movie.paused)
+			play_delay = delay
+			movieset(movie_changed)
+		    //console.log("object")
+			movie_last_status = bool2int(movie.paused)
+			return
+		}
+		if(play_delay > 0)
+		{
+			play_delay = play_delay - 1
+			movieset(movie_changed)
+			return
+		}
+		
+		movie_last_status = bool2int(movie.paused)
+		movieget()
+		//if(movie_src != movie_url)
+		//	console.log("changed" + movie_src + ' ' + movie_url)
+		//	movie_src = movie_url
+		//	movie.src('/static/movie/' + movie_url)
+		if(-1 != movie_status)
+		{
+			if(movie_status == 0)
+			{
+				movie.pause()
+			}
+			else if(movie_status == 1)
+			{
+				movie.play()
+			}
+		    //console.log("play or pause")
+		}
+		if(movie_changed > 0)
+		{
+		    movie_changed = movie_changed - 1
+		    return
+		}
+        else if(movie_changed_other > 0)
+		{
+			movie.currentTime = movie_rate
+		}
+		else
+		{
+		    if(movie.currentTime - movie_rate > 10)
+		    {
+		    	//movie.currentTime = movie_rate
+		        movie_rate = movie.currentTime
+				movie_changed = delay 
+		    }
+		    else if(movie.currentTime - movie_rate < -10)
+		    {
+		    	//movie.currentTime = movie_rate
+		        movie_rate = movie.currentTime
+		        movie_changed = delay 
+		    }
+		    else
+		    {
+		        movie_rate = movie.currentTime
+		    }
+		}
+	    movie_status = -1
+	    movieset(movie_changed)
+	}
+
+
+    function movieset(changed)
+    {
+		$.ajax({
+		    url:"/movieset",
+		    data:{
+				movie_url: movie_url,
+				movie_status: movie_status,
+				movie_rate: movie_rate,
+				movie_changed: changed,
+			},
+		    dataType: "json",
+		    success: function (res) {
+			    //console.log(res) 
+			}
+		}) 
+    }
+
+
+    function movieget()
+    {
+		$.ajax({
+		    url:"/movieget",
+		    dataType: "json",
+		    success: function (res) {
+			    //console.log(res) 
+		        movie_url = res.movie_url
+				movie_status = res.movie_status
+				movie_rate = res.movie_rate
+				movie_changed_other = res.movie_changed
+			}
+		}) 
+    }
+
+
+	function bool2int(obj)
+    {
+		if(obj == true)
+		{
+			return 1
+		}
+		else
+		{
+			return 0
+		}
+    }
+</script>
+</body>
+</html>

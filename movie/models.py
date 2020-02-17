@@ -10,4 +10,4 @@ class Movie(models.Model):
     changed = models.IntegerField(default=0)
 
     def __str__(self):
-        return 'Movie' + str(self.status) + ' ' + str(self.rate) + ' ' + self.url + ' ' + self.changed
+        return 'Movie' + str(self.status) + ' ' + str(self.rate) + ' ' + self.url + ' ' + str(self.changed)

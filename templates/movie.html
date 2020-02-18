@@ -10,8 +10,9 @@
 </head>
 <body>
 {% include 'header.html' with lang=lang active='movie'%}
-<div class="container">
-		<video id="mainVideo" controls autoplay src="/static/movie/{{movie_url}}">
+<div class="container" style="padding-top:5rem">
+		<video id="mainVideo" controls autoplay style="width:100%">
+			<source src="/static/movie/{{movie_url}}" type="video/mp4"/>
 		</video>
 </div>
 {% include 'footer.html' with lang=lang%}

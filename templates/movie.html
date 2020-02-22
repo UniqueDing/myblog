@@ -12,7 +12,8 @@
 {% include 'header.html' with lang=lang active='movie'%}
 <div class="container" style="padding-top:5rem">
 		<video id="mainVideo" controls autoplay style="width:100%">
-			<source src="/static/movie/{{movie_url}}" type="video/mp4"/>
+				<!--<source src="/static/movie/{{movie_url}}" type="video/mp4"/>-->
+				<source src="{{movie_url}}" type="video/mp4"/>
 		</video>
 </div>
 {% include 'footer.html' with lang=lang%}
@@ -153,6 +154,49 @@
 			return 0
 		}
     }
+
+		//reurn false 禁止函数内部执行其他的事件或者方法
+    var vol = 0.1;  //1代表100%音量，每次增减0.1
+    var time = 10; //单位秒，每次增减10秒
+
+    document.onkeyup = function (event) {//键盘事件
+
+        //console.log("keyCode:" + event.keyCode);
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+
+        //鼠标上下键控制视频音量
+        if (e && e.keyCode === 38) {
+
+            // 按 向上键
+            movie.volume !== 1 ? movie.volume += vol : 1;
+            return false;
+
+        } else if (e && e.keyCode === 40) {
+
+            // 按 向下键
+            movie.volume !== 0 ? movie.volume -= vol : 1;
+            return false;
+
+        } else if (e && e.keyCode === 37) {
+
+            // 按 向左键
+            movie.currentTime !== 0 ? movie.currentTime -= time : 1;
+            return false;
+
+        } else if (e && e.keyCode === 39) {
+
+            // 按 向右键
+            movie.volume !== movie.duration ? movie.currentTime += time : 1;
+            return false;
+
+        } else if (e && e.keyCode === 32) {
+
+            // 按空格键 判断当前是否暂停
+            movie.paused === true ? movie.play() : movie.pause();
+            return false;
+        }
+
+    };
 </script>
 </body>
 </html>

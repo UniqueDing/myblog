@@ -11,9 +11,11 @@
 <body>
 {% include 'header.html' with lang=lang active='movie'%}
 <div class="container" style="padding-top:5rem">
-		<video id="mainVideo" controls autoplay style="width:100%">
-				<!--<source src="/static/movie/{{movie_url}}" type="video/mp4"/>-->
-				<source src="{{movie_url}}" type="video/mp4"/>
+		<div class = "movie_url row" style="display:{{movie_changed}}">
+				<input class="form-control col-md-10" id="movie_url_text" type="text" value="{{movie_url}}">
+				<button class="btn col-md-2" id="movie_url_btn" onclick="click_btn_movie()">{% if lang == 'en' %}SUBMIT{% else %}提交{% endif %}</button>
+		</div>
+		<video id="mainVideo" controls autoplay src="{{movie_url}}" style="width:100%">
 		</video>
 </div>
 {% include 'footer.html' with lang=lang%}
@@ -21,12 +23,14 @@
     var movie = document.getElementById("mainVideo")
     var movie_url = '{{ movie_url }}'
     var movie_src = movie_url
-    var movie_status = {{ movie_status }}
+    var movie_status = {{ movie_status }} // 1 play 0 pause
     var movie_rate = {{ movie_rate }}
-    var movie_changed = 0
+    var is_admin = '{{movie_changed}}'
+    var movie_changed = getQueryVariable('changed')
+
+
     var movie_changed_other = 0
 	var movie_last_status = 0
-
 	var delay = 2
 	var play_delay = 0
 
@@ -38,8 +42,59 @@
 		setInterval("loop()", 2000)
     })
 
+    function click_btn_movie()
+    {
+		movie.src = $("#movie_url_text").val()
+		movie.url = movie.src
+    }
 
     function loop()
+    {
+        if(is_admin == 'display')
+		{
+            movie_submit()
+		}
+		else
+		{
+		    movie_update()
+		}
+	}
+
+    function movie_submit()
+    {
+		movie_url = movie.src
+		movie_rate = movie.currentTime
+		movie_status = bool2int(!movie.paused)
+		movieset()
+    }
+    
+    function movie_update()
+    {
+		movieget()
+
+        if(movie.src != movie_url)
+		{
+		    movie.src = movie_url
+		}
+		if(movie.currentTime - movie_rate > 10 || movie.currentTime - movie_rate < -10)
+		{
+			movie.currentTime = movie_rate
+		}
+		if(bool2int(!movie.paused) != movie_status)
+		{
+		    
+			if(movie_status == 0)
+			{
+				movie.pause()
+			}
+			else if(movie_status == 1)
+			{
+				movie.play()
+			}
+        }
+    }
+
+    function loop2()
     {
 		//play and pause
 		if(bool2int(movie.paused) != movie_last_status)
@@ -109,7 +164,7 @@
 	}
 
 
-    function movieset(changed)
+    function movieset()
     {
 		$.ajax({
 		    url:"/movieset",
@@ -117,7 +172,7 @@
 				movie_url: movie_url,
 				movie_status: movie_status,
 				movie_rate: movie_rate,
-				movie_changed: changed,
+				movie_changed: movie_changed,
 			},
 		    dataType: "json",
 		    success: function (res) {
@@ -137,7 +192,6 @@
 		        movie_url = res.movie_url
 				movie_status = res.movie_status
 				movie_rate = res.movie_rate
-				movie_changed_other = res.movie_changed
 			}
 		}) 
     }
@@ -155,7 +209,19 @@
 		}
     }
 
-		//reurn false 禁止函数内部执行其他的事件或者方法
+
+    function getQueryVariable(variable)
+    {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+    }
+
+//reurn false 禁止函数内部执行其他的事件或者方法
     var vol = 0.1;  //1代表100%音量，每次增减0.1
     var time = 10; //单位秒，每次增减10秒
 

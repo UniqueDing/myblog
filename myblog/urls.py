@@ -18,6 +18,7 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.views import static
 from django.views.generic import RedirectView, TemplateView
+import os
 
 from core import views as core_view
 from article import views as article_view
@@ -40,8 +41,8 @@ urlpatterns = [
     path('labelList/', article_view.labelList),
     path('pictureList/', picture_view.pictureList),
     path('plabelList/', picture_view.plabelList),
-    path('btding/', admin.site.urls),
-    path('favicon.ico', RedirectView.as_view(url=r'static/favicon.ico')),
+    path( os.getenv('ADMIN_URL'), admin.site.urls),
+    path('favicon.ico', RedirectView.as_view(url=r'static/res/favicon.ico')),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     re_path(r'^static/(?P<path>.*)$', static.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
 ]

@@ -5,10 +5,12 @@ from article import models as article_modules
 from picture import models as picture_modules
 import json
 import math
+import os
 
 
 def index_view(request):
     lang = language(request)
+    print(os.getenv("DEBUG"))
     article = []
     picture = []
     for ele in article_modules.Article.objects.all().order_by('-time')[:8]:
@@ -41,7 +43,7 @@ def music_view(request):
 
 def about_view(request):
     lang = language(request)
-    f = open('static/README.md', encoding='UTF-8')
+    f = open('static/res/about.md', encoding='UTF-8')
     file = f.read()
     # print(file)
     f.close()

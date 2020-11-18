@@ -1,0 +1,4 @@
+Django==3.0.7
+pyquery==1.4.1
+markdown==3.2.2
+uwsgi==2.0.19.1

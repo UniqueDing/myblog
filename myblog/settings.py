@@ -21,12 +21,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@jju8z*!2-rkxt#i4ocs+w6e64y6ct7ocld3rq46n%t!%bz7#3'
+# SECRET_KEY = '@jju8z*!2-rkxt#i4ocs+w6e64y6ct7ocld3rq46n%t!%bz7#3'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ['uniqueding.cn', 'www.uniqueding.cn', '127.0.0.1','localhost']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -83,7 +85,7 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db/db.sqlite3'),
     }
 }
 
@@ -129,7 +131,7 @@ STATICFILES_DIRS = [
 ]
 
 # if not debug
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '/static/'),
-]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, '/static/'),
+# ]

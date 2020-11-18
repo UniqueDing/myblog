@@ -1,0 +1,17 @@
+version: '3'
+services:
+    myblog:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 8000:8000
+      volumes:
+        - $PWD/docker/md:/root/static/md
+        - $PWD/docker/pic:/root/static/pic
+        - $PWD/docker/res:/root/static/res
+        - $PWD/docker/db:/root/db
+      restart: always
+      env_file:
+          myblog.env
+

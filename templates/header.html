@@ -17,9 +17,9 @@
             <li class="nav-item">
                 <a class="nav-link" id="picture" href="/picture">{% if lang == 'en' %}PICTURE{% else %}图片{% endif %}</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" id="music" href="/movie">{% if lang == 'en' %}MOVIE{% else %}电影{% endif %}</a>
-            </li>
+            <!-- <li class="nav-item"> -->
+            <!--     <a class="nav-link" id="movie" href="/movie">{% if lang == 'en' %}MOVIE{% else %}电影{% endif %}</a> -->
+            <!-- </li> -->
             <li class="nav-item">
                 <a class="nav-link" id="about" href="/about">{% if lang == 'en' %}ABOUT{% else %}关于{% endif %}</a>
             </li>
@@ -32,11 +32,14 @@
                     <a class="nav-link" id="about" href="?lang=en">ENGLISH</a>
                 {% endif %}
             </li>
+			<!-- <li> -->
+			<!-- 	<input class="form-control mr-sm-2" type="search" placeholder="{% if lang == 'en' %}SEARCH{% else %}搜索{% endif %}" aria-label="Search"> -->
+			<!-- </li> -->
         </div>
-{#        <form class="form-inline my-2 my-lg-0">#}
-{#            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
-{#            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
-{#        </form>#}
+        <!-- <form class="form-inline my-2 my-lg-0"> -->
+            <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+        <!-- </form> -->
     </div>
 </nav>
 </div>
@@ -52,7 +55,7 @@
             $('#picture').addClass("active");
             break;
         case 'music':
-            $('#music').addClass("active");
+            $('#movie').addClass("active");
             break;
         case 'about':
             $('#about').addClass("active");

@@ -3,9 +3,9 @@
 ## This is my Blog
 
 -----
-Use by Python and Django
-Articles are wrote by Markdown
-email:1224472370@qq.com|unique122447@gmail.com
+Use by Python and Django  
+Articles are wrote by Markdown  
+email:1224472370@qq.com|unique122447@gmail.com  
 
 -----
 
@@ -13,14 +13,14 @@ email:1224472370@qq.com|unique122447@gmail.com
 
 -----
 
-使用Python和Django编写
-文章使用Markdown编写
+使用Python和Django编写  
+文章使用Markdown编写  
 邮箱:1224472370@qq.com|unique122447@gmail.com  
 
 ## docker
 
 -----
-docker-compose build
+docker-compose build  
 docker-compose up -d
 
 ### 2020-11-19

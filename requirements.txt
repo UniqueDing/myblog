@@ -1,4 +1,4 @@
-Django==3.1.13
+Django==3.1.14
 pyquery==1.4.1
 markdown==3.2.2
 uwsgi==2.0.22
